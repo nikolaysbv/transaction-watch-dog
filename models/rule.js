@@ -1,9 +1,12 @@
 export default (sequelize, type) => {
   return sequelize.define("rule", {
-    ruleName: {
-      type: type.STRING,
+    ruleId: {
+      type: type.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      initialAutoIncrement: 1,
     },
-    ruleDoes: {
+    ruleDef: {
       type: type.JSON,
     },
   });

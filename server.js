@@ -6,9 +6,11 @@ import "dotenv/config";
 import { connectDB } from "./db/connect.js";
 import monitor from "./utils/monitor.js";
 
-import monitorRouter from "./routes/monitorRouter.js";
+import rulesRouter from "./routes/rulesRouter.js";
 
-// app.use("/api/v1/monitor", monitorRouter);
+app.use(express.json());
+
+app.use("/api/v1/rules", rulesRouter);
 
 app.get("*", (req, res) => {
   res.send("Hi!");
