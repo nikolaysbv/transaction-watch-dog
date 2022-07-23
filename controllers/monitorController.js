@@ -1,3 +1,4 @@
+import { Transaction } from "../db/sequelize.js";
 import WebSocket from "ws";
 let ws;
 let openv = false;
@@ -29,8 +30,9 @@ const monitor = async (req, res) => {
     );
   });
 
-  ws.on("message", function message(data) {
-    console.log(JSON.parse(data.toString()).params?.result.number);
+  ws.on("message", async function message(data) {
+    const transactionNumber = JSON.parse(data.toString()).params?.result.number;
+    await Transaction.create({ transactionNumber: transactionNumber });
   });
 
   res.send("monitoring started");
