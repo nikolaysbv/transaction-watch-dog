@@ -1,6 +1,9 @@
 import "dotenv/config";
 import { Sequelize } from "sequelize";
 import TransactionModelConstructor from "../models/transaction.js";
+import RuleModelConstructor from "../models/rule.js";
+
+let sequelizeExp;
 
 const connectDB = async (db, name, password) => {
   const sequelize = new Sequelize(db, name, password, {
@@ -8,11 +11,14 @@ const connectDB = async (db, name, password) => {
     dialect: "mysql",
   });
 
-  const Transaction = TransactionModelConstructor(sequelize, Sequelize);
+  const Transactions = TransactionModelConstructor(sequelize, Sequelize);
+  const Rules = RuleModelConstructor(sequelize, Sequelize);
 
-  await sequelize.sync({ force: true }).then(() => {
+  await sequelize.sync().then(() => {
     console.log(`\nDatabase & tables created...`);
   });
+
+  sequelizeExp = { Transactions, Rules };
 };
 
-export default connectDB;
+export { connectDB, sequelizeExp };

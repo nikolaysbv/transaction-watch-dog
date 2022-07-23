@@ -3,7 +3,7 @@ const app = express();
 
 import "dotenv/config";
 
-import connectDB from "./db/connect.js";
+import { connectDB } from "./db/connect.js";
 import monitor from "./utils/monitor.js";
 
 import monitorRouter from "./routes/monitorRouter.js";

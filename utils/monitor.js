@@ -1,12 +1,9 @@
+import { sequelizeExp } from "../db/connect.js";
 import WebSocket from "ws";
+import applyRules from "./applyRules.js";
 
 export default (endpoint) => {
   const ws = new WebSocket(endpoint);
-
-  ws.on("close", function close() {
-    console.log("close");
-    openv = false;
-  });
 
   ws.on("open", function open() {
     ws.send(
@@ -20,9 +17,20 @@ export default (endpoint) => {
   });
 
   ws.on("message", async function message(data) {
-    const transactionNumber = JSON.parse(data.toString()).params?.result.number;
-    // await Transaction.create({ transactionNumber: transactionNumber });
-    console.log(transactionNumber);
+    const transactionData = JSON.parse(data.toString());
+    console.log(transactionData);
+    applyRules();
+    if (!transactionData.id) {
+      const transactionNumber = transactionData.params?.result.number;
+      await sequelizeExp.Transactions.create({
+        transactionNumber: transactionNumber,
+      });
+    }
+  });
+
+  ws.on("close", function close() {
+    console.log("close");
+    openv = false;
   });
 
   console.log("Monitoring started...");
