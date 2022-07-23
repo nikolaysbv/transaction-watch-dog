@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "This application monitors the Ethereum blockchain and makes decisions based on a rule set defined by the user.",
   "type": "module",
-  "main": "server.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "author": "Nikolay Srebrev",
   "license": "ISC",

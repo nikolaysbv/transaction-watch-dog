@@ -1,13 +1,13 @@
-import { sequelizeExp } from "../db/connect.js";
+import { models } from "../../db/sequelize.js";
 
 const getAllRules = async (req, res) => {
-  const rules = await sequelizeExp.Rules.findAll();
+  const rules = await models.Rules.findAll();
   res.status(200).json(rules);
 };
 
 const getRule = async (req, res) => {
   const ruleId = req.params.id;
-  const rule = await sequelizeExp.Rules.findOne({
+  const rule = await models.Rules.findOne({
     where: {
       ruleId: ruleId,
     },
@@ -19,7 +19,7 @@ const getRule = async (req, res) => {
 const createRule = async (req, res) => {
   const ruleDef = req.body;
 
-  await sequelizeExp.Rules.create({ ruleDef: ruleDef });
+  await models.Rules.create({ ruleDef: ruleDef });
 
   res.status(200).send("Rule created!");
 };
@@ -28,7 +28,7 @@ const updateRule = async (req, res) => {
   const ruleId = req.params.id;
   const newRuleDef = req.body;
 
-  const rule = await sequelizeExp.Rules.findOne({
+  const rule = await models.Rules.findOne({
     where: {
       ruleId: ruleId,
     },
@@ -43,7 +43,7 @@ const updateRule = async (req, res) => {
 
 const deleteRule = async (req, res) => {
   const ruleId = req.params.id;
-  const rule = await sequelizeExp.Rules.findOne({
+  const rule = await models.Rules.findOne({
     where: {
       ruleId: ruleId,
     },
