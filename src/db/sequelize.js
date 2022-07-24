@@ -1,7 +1,9 @@
 import "dotenv/config";
 import { Sequelize } from "sequelize";
-import TransactionModelConstructor from "./models/transaction.js";
-import RuleModelConstructor from "./models/rule.js";
+import {
+  TransactionModelConstructor,
+  RuleModelConstructor,
+} from "./models/index.js";
 
 let models;
 
@@ -14,6 +16,10 @@ const connect = async (db, name, password) => {
 
   const Transactions = TransactionModelConstructor(sequelize, Sequelize);
   const Rules = RuleModelConstructor(sequelize, Sequelize);
+
+  Rules.hasMany(Transactions, {
+    foreignKey: "ruleId",
+  });
 
   await sequelize.sync().then(() => {
     console.log(`\nDatabase & tables created...`);

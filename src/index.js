@@ -10,7 +10,7 @@ import startHttpServer from "./api/server.js";
       process.env.DB_USER,
       process.env.DB_PASSWORD
     );
-    openWebSocket(process.env.INFURA_ENDPOINT);
+    // openWebSocket(process.env.INFURA_ENDPOINT);
     startHttpServer();
   } catch (error) {
     console.log(error);

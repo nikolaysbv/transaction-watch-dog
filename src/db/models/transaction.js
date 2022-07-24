@@ -41,5 +41,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       defaultValue: 0,
     },
+    ruleId: {
+      type: type.INTEGER,
+    },
   });
 };

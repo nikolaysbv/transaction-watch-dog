@@ -17,9 +17,11 @@ const getRule = async (req, res) => {
 };
 
 const createRule = async (req, res) => {
-  const ruleDef = req.body;
+  const newRule = req.body;
 
-  await models.Rules.create({ ruleDef: ruleDef });
+  // if (!newRule.length)
+
+  await models.Rules.create(newRule);
 
   res.status(200).send("Rule created!");
 };
