@@ -18,7 +18,10 @@ export default (sequelize, type) => {
     ruleBlockNumber: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
     ruleFrom: {
@@ -27,13 +30,19 @@ export default (sequelize, type) => {
     ruleGas: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
     ruleGasPrice: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
     ruleHash: {
@@ -42,7 +51,10 @@ export default (sequelize, type) => {
     ruleNonce: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
     ruleTo: {
@@ -51,17 +63,28 @@ export default (sequelize, type) => {
     ruleTransactionIndex: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
     ruleType: {
       type: type.STRING,
-      isIn: [["legacy", "accessList", "EIP-1559"]],
+      validate: {
+        isIn: {
+          args: [["legacy", "accessList", "EIP-1559"]],
+          msg: "Must be one of 'legacy', 'accessList' or 'EIP-1559'",
+        },
+      },
     },
     ruleValue: {
       type: type.STRING,
       validate: {
-        is: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
       },
     },
   });

@@ -1,4 +1,6 @@
 import { models } from "../../db/sequelize.js";
+import { StatusCodes } from "http-status-codes";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const getAllRules = async (req, res) => {
   const rules = await models.Rules.findAll();
@@ -13,17 +15,57 @@ const getRule = async (req, res) => {
     },
   });
 
-  res.status(200).json(rule);
+  res.status(StatusCodes.OK).json(rule);
 };
 
 const createRule = async (req, res) => {
-  const newRule = req.body;
+  const {
+    ruleName,
+    ruleBlockHash,
+    ruleBlockNumber,
+    ruleFrom,
+    ruleGas,
+    ruleGasPrice,
+    ruleHash,
+    ruleNonce,
+    ruleTo,
+    ruleTransactionIndex,
+    ruleType,
+    ruleValue,
+  } = req.body;
 
-  // if (!newRule.length)
+  if (
+    !ruleBlockHash &&
+    !ruleFrom &&
+    !ruleBlockNumber &&
+    !ruleGas &&
+    !ruleGasPrice &&
+    !ruleHash &&
+    !ruleNonce &&
+    !ruleTo &&
+    !ruleTransactionIndex &&
+    !ruleType &&
+    !ruleValue
+  ) {
+    throw new BadRequestError("Please provide rule propeties!");
+  }
 
-  await models.Rules.create(newRule);
+  const rule = await models.Rules.create({
+    ruleName,
+    ruleBlockHash,
+    ruleBlockNumber,
+    ruleFrom,
+    ruleGas,
+    ruleGasPrice,
+    ruleHash,
+    ruleNonce,
+    ruleTo,
+    ruleTransactionIndex,
+    ruleType,
+    ruleValue,
+  });
 
-  res.status(200).send("Rule created!");
+  res.status(StatusCodes.CREATED).json(rule);
 };
 
 const updateRule = async (req, res) => {
@@ -40,7 +82,7 @@ const updateRule = async (req, res) => {
 
   await rule.save();
 
-  res.status(200).json(rule);
+  res.status(StatusCodes.OK).json(rule);
 };
 
 const deleteRule = async (req, res) => {
@@ -53,7 +95,7 @@ const deleteRule = async (req, res) => {
 
   await rule.destroy();
 
-  res.status(200).send("Rule deleted!");
+  res.status(StatusCodes.OK).send("Rule deleted!");
 };
 
 export { getAllRules, getRule, createRule, updateRule, deleteRule };
