@@ -6,8 +6,14 @@ export default (sequelize, type) => {
       autoIncrement: true,
       initialAutoIncrement: 1,
     },
-    ruleDef: {
-      type: type.JSON,
+    ruleFrom: {
+      type: type.STRING,
+    },
+    ruleTo: {
+      type: type.STRING,
+    },
+    ruleValue: {
+      type: type.FLOAT,
     },
   });
 };

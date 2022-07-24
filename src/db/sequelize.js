@@ -9,6 +9,7 @@ const connect = async (db, name, password) => {
   const sequelize = new Sequelize(db, name, password, {
     host: "localhost",
     dialect: "mysql",
+    logging: false,
   });
 
   const Transactions = TransactionModelConstructor(sequelize, Sequelize);
