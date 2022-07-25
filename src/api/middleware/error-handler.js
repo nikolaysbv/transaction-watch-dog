@@ -6,7 +6,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     msg: err.message || "Something went wrong, try again later",
   };
 
-  if (err.errors[0].type === "Validation error") {
+  if (err?.errors && err.errors[0].type === "Validation error") {
     defaultError.statusCode = StatusCodes.BAD_REQUEST;
     defaultError.msg = err.errors
       .map((item) => `${item.path} ${item.message}`)

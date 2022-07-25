@@ -15,6 +15,10 @@ const getConfiguration = async (req, res) => {
     },
   });
 
+  if (!configuration) {
+    throw new NotFoundError(`No configuration with id ${configurationId}`);
+  }
+
   res.status(StatusCodes.OK).json(configuration);
 };
 
@@ -70,7 +74,37 @@ const createConfiguration = async (req, res) => {
 
 const updateConfiguration = async (req, res) => {
   const configurationId = req.params.id;
-  const newConfigurationDef = req.body;
+  const {
+    configurationName,
+    configurationBlockHash,
+    configurationBlockNumber,
+    configurationFrom,
+    configurationGas,
+    configurationGasPrice,
+    configurationHash,
+    configurationNonce,
+    configurationTo,
+    configurationTransactionIndex,
+    configurationType,
+    configurationValue,
+  } = req.body;
+
+  if (
+    !configurationName &&
+    !configurationBlockHash &&
+    !configurationFrom &&
+    !configurationBlockNumber &&
+    !configurationGas &&
+    !configurationGasPrice &&
+    !configurationHash &&
+    !configurationNonce &&
+    !configurationTo &&
+    !configurationTransactionIndex &&
+    !configurationType &&
+    !configurationValue
+  ) {
+    throw new BadRequestError("Please provide configuration propeties!");
+  }
 
   const configuration = await models.Configurations.findOne({
     where: {
@@ -78,7 +112,24 @@ const updateConfiguration = async (req, res) => {
     },
   });
 
-  configuration.configurationDef = newConfigurationDef;
+  if (!configuration) {
+    throw new NotFoundError(`No configuration with id ${configurationId}`);
+  }
+
+  configuration.set({
+    configurationName,
+    configurationBlockHash,
+    configurationBlockNumber,
+    configurationFrom,
+    configurationGas,
+    configurationGasPrice,
+    configurationHash,
+    configurationNonce,
+    configurationTo,
+    configurationTransactionIndex,
+    configurationType,
+    configurationValue,
+  });
 
   await configuration.save();
 
@@ -92,6 +143,10 @@ const deleteConfiguration = async (req, res) => {
       configurationId: configurationId,
     },
   });
+
+  if (!configuration) {
+    throw new NotFoundError(`No configuration with id ${configurationId}`);
+  }
 
   await configuration.destroy();
 
