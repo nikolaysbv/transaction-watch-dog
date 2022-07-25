@@ -19,8 +19,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
@@ -31,8 +31,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
@@ -40,8 +40,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
@@ -52,8 +52,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
@@ -64,8 +64,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
@@ -82,8 +82,8 @@ export default (sequelize, type) => {
       type: type.STRING,
       validate: {
         is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*$|^(range)\s\d+,?\d*,{1}\s\d+,?\d*$/i,
-          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
         },
       },
     },
