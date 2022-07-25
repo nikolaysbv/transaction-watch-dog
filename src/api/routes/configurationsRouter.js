@@ -1,19 +1,18 @@
 import express from "express";
 const router = express.Router();
 
-import {
-  getAllConfigurations,
-  getConfiguration,
-  createConfiguration,
-  updateConfiguration,
-  deleteConfiguration,
-} from "../controllers/configurationsController.js";
+import container from "../../di-setup.js";
+const configurationsController = container.resolve("configurationsController");
 
-router.route("/").get(getAllConfigurations).post(createConfiguration);
+router
+  .route("/")
+  .get(configurationsController.getAllConfigurations)
+  .post(configurationsController.createConfiguration);
+
 router
   .route("/:id")
-  .get(getConfiguration)
-  .delete(deleteConfiguration)
-  .patch(updateConfiguration);
+  .get(configurationsController.getConfiguration)
+  .delete(configurationsController.deleteConfiguration)
+  .patch(configurationsController.updateConfiguration);
 
 export default router;

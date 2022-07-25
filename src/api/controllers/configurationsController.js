@@ -1,162 +1,141 @@
-import { models } from "../../db/sequelize.js";
-import { StatusCodes } from "http-status-codes";
-import { BadRequestError, NotFoundError } from "../errors/index.js";
+import { BadRequestError } from "../errors/index.js";
 
-const getAllConfigurations = async (req, res) => {
-  const configurations = await models.Configurations.findAll();
-  res.status(200).json(configurations);
-};
+class ConfigurationsController {
+  constructor({ configurationsDao }) {
+    this.configurationsDao = configurationsDao;
 
-const getConfiguration = async (req, res) => {
-  const configurationId = req.params.id;
-  const configuration = await models.Configurations.findOne({
-    where: {
-      configurationId: configurationId,
-    },
-  });
-
-  if (!configuration) {
-    throw new NotFoundError(`No configuration with id ${configurationId}`);
+    this.getAllConfigurations = this.getAllConfigurations.bind(this);
+    this.getConfiguration = this.getConfiguration.bind(this);
+    this.createConfiguration = this.createConfiguration.bind(this);
+    this.updateConfiguration = this.updateConfiguration.bind(this);
+    this.deleteConfiguration = this.deleteConfiguration.bind(this);
   }
 
-  res.status(StatusCodes.OK).json(configuration);
-};
-
-const createConfiguration = async (req, res) => {
-  const {
-    configurationName,
-    configurationBlockHash,
-    configurationBlockNumber,
-    configurationFrom,
-    configurationGas,
-    configurationGasPrice,
-    configurationHash,
-    configurationNonce,
-    configurationTo,
-    configurationTransactionIndex,
-    configurationType,
-    configurationValue,
-  } = req.body;
-
-  if (
-    !configurationBlockHash &&
-    !configurationFrom &&
-    !configurationBlockNumber &&
-    !configurationGas &&
-    !configurationGasPrice &&
-    !configurationHash &&
-    !configurationNonce &&
-    !configurationTo &&
-    !configurationTransactionIndex &&
-    !configurationType &&
-    !configurationValue
-  ) {
-    throw new BadRequestError("Please provide configuration propeties!");
+  async getAllConfigurations(req, res) {
+    const configurations = await this.configurationsDao.getAllConfigurations();
+    res.status(200).json(configurations);
   }
 
-  const configuration = await models.Configurations.create({
-    configurationName,
-    configurationBlockHash,
-    configurationBlockNumber,
-    configurationFrom,
-    configurationGas,
-    configurationGasPrice,
-    configurationHash,
-    configurationNonce,
-    configurationTo,
-    configurationTransactionIndex,
-    configurationType,
-    configurationValue,
-  });
+  async getConfiguration(req, res) {
+    const configurationId = req.params.id;
+    const configuration = await this.configurationsDao.getConfiguration(
+      configurationId
+    );
 
-  res.status(StatusCodes.CREATED).json(configuration);
-};
-
-const updateConfiguration = async (req, res) => {
-  const configurationId = req.params.id;
-  const {
-    configurationName,
-    configurationBlockHash,
-    configurationBlockNumber,
-    configurationFrom,
-    configurationGas,
-    configurationGasPrice,
-    configurationHash,
-    configurationNonce,
-    configurationTo,
-    configurationTransactionIndex,
-    configurationType,
-    configurationValue,
-  } = req.body;
-
-  if (
-    !configurationName &&
-    !configurationBlockHash &&
-    !configurationFrom &&
-    !configurationBlockNumber &&
-    !configurationGas &&
-    !configurationGasPrice &&
-    !configurationHash &&
-    !configurationNonce &&
-    !configurationTo &&
-    !configurationTransactionIndex &&
-    !configurationType &&
-    !configurationValue
-  ) {
-    throw new BadRequestError("Please provide configuration propeties!");
+    res.status(200).json(configuration);
   }
 
-  const configuration = await models.Configurations.findOne({
-    where: {
-      configurationId: configurationId,
-    },
-  });
+  async createConfiguration(req, res) {
+    const {
+      configurationName,
+      configurationBlockHash,
+      configurationBlockNumber,
+      configurationFrom,
+      configurationGas,
+      configurationGasPrice,
+      configurationHash,
+      configurationNonce,
+      configurationTo,
+      configurationTransactionIndex,
+      configurationType,
+      configurationValue,
+    } = req.body;
 
-  if (!configuration) {
-    throw new NotFoundError(`No configuration with id ${configurationId}`);
+    if (
+      !configurationBlockHash &&
+      !configurationFrom &&
+      !configurationBlockNumber &&
+      !configurationGas &&
+      !configurationGasPrice &&
+      !configurationHash &&
+      !configurationNonce &&
+      !configurationTo &&
+      !configurationTransactionIndex &&
+      !configurationType &&
+      !configurationValue
+    ) {
+      throw new BadRequestError("Please provide configuration propeties!");
+    }
+
+    const configuration = await this.configurationsDao.createConfiguration({
+      configurationName,
+      configurationBlockHash,
+      configurationBlockNumber,
+      configurationFrom,
+      configurationGas,
+      configurationGasPrice,
+      configurationHash,
+      configurationNonce,
+      configurationTo,
+      configurationTransactionIndex,
+      configurationType,
+      configurationValue,
+    });
+
+    res.status(201).json(configuration);
   }
 
-  configuration.set({
-    configurationName,
-    configurationBlockHash,
-    configurationBlockNumber,
-    configurationFrom,
-    configurationGas,
-    configurationGasPrice,
-    configurationHash,
-    configurationNonce,
-    configurationTo,
-    configurationTransactionIndex,
-    configurationType,
-    configurationValue,
-  });
+  async updateConfiguration(req, res) {
+    const configurationId = req.params.id;
+    const {
+      configurationName,
+      configurationBlockHash,
+      configurationBlockNumber,
+      configurationFrom,
+      configurationGas,
+      configurationGasPrice,
+      configurationHash,
+      configurationNonce,
+      configurationTo,
+      configurationTransactionIndex,
+      configurationType,
+      configurationValue,
+    } = req.body;
 
-  await configuration.save();
+    if (
+      !configurationName &&
+      !configurationBlockHash &&
+      !configurationFrom &&
+      !configurationBlockNumber &&
+      !configurationGas &&
+      !configurationGasPrice &&
+      !configurationHash &&
+      !configurationNonce &&
+      !configurationTo &&
+      !configurationTransactionIndex &&
+      !configurationType &&
+      !configurationValue
+    ) {
+      throw new BadRequestError("Please provide configuration propeties!");
+    }
 
-  res.status(StatusCodes.OK).json(configuration);
-};
+    const configuration = await this.configurationsDao.updateConfiguration(
+      configurationId,
+      {
+        configurationName,
+        configurationBlockHash,
+        configurationBlockNumber,
+        configurationFrom,
+        configurationGas,
+        configurationGasPrice,
+        configurationHash,
+        configurationNonce,
+        configurationTo,
+        configurationTransactionIndex,
+        configurationType,
+        configurationValue,
+      }
+    );
 
-const deleteConfiguration = async (req, res) => {
-  const configurationId = req.params.id;
-  const configuration = await models.Configurations.findOne({
-    where: {
-      configurationId: configurationId,
-    },
-  });
-
-  if (!configuration) {
-    throw new NotFoundError(`No configuration with id ${configurationId}`);
+    res.status(200).json(configuration);
   }
 
-  await configuration.destroy();
+  async deleteConfiguration(req, res) {
+    const configurationId = req.params.id;
+    await this.configurationsDao.deleteConfiguration(configurationId);
 
-  res.status(StatusCodes.OK).send("Configuration deleted!");
-};
+    res.status(200).send("Configuration deleted!");
+  }
+}
 
-export {
-  getAllConfigurations,
-  getConfiguration,
-  createConfiguration,
-  updateConfiguration,
-  deleteConfiguration,
-};
+export default ConfigurationsController;

@@ -1,18 +1,10 @@
 import "dotenv/config";
-import { connect as connectToDatabase } from "./db/sequelize.js";
-import openWebSocket from "./watcher/socket.js";
-import startHttpServer from "./api/server.js";
+import "./di-setup.js";
+import Watcher from "./watcher.js";
+import Server from "./api/server.js";
 
-(async () => {
-  try {
-    await connectToDatabase(
-      "watchdog",
-      process.env.DB_USER,
-      process.env.DB_PASSWORD
-    );
-    openWebSocket(process.env.INFURA_ENDPOINT);
-    startHttpServer();
-  } catch (error) {
-    console.log(error);
-  }
-})();
+const watcher = new Watcher();
+watcher.watch(process.env.INFURA_ENDPOINT);
+
+const server = new Server();
+server.run(process.env.PORT || 5000);
