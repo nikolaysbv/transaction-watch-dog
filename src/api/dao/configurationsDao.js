@@ -1,3 +1,8 @@
+/**
+ * The Data Access Object does all communication with
+ * the DB (on API level).
+ */
+
 import { NotFoundError } from "../errors/index.js";
 
 class ConfigurationsDao {

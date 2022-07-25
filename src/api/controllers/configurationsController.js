@@ -1,9 +1,15 @@
+/**
+ * Here we determine the outcome of HTTP requests.
+ */
+
 import { BadRequestError } from "../errors/index.js";
 
 class ConfigurationsController {
   constructor({ configurationsDao }) {
+    // inject the data access object
     this.configurationsDao = configurationsDao;
 
+    // 'this' bindings necessary for functions
     this.getAllConfigurations = this.getAllConfigurations.bind(this);
     this.getConfiguration = this.getConfiguration.bind(this);
     this.createConfiguration = this.createConfiguration.bind(this);

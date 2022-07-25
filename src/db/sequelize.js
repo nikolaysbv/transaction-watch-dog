@@ -1,3 +1,9 @@
+/**
+ * Here connect to the DB and create two tables -
+ * Transactions and Configurations using our
+ * model constructor functions.
+ */
+
 import "dotenv/config";
 import { Sequelize } from "sequelize";
 import {
@@ -5,6 +11,7 @@ import {
   ConfigurationModelConstructor,
 } from "./models/index.js";
 
+// new DB connection instance
 const sequelize = new Sequelize(
   "watchdog",
   process.env.DB_USER,
@@ -20,10 +27,12 @@ const sequelize = new Sequelize(
 const Transactions = TransactionModelConstructor(sequelize, Sequelize);
 const Configurations = ConfigurationModelConstructor(sequelize, Sequelize);
 
+// set up one Configuration to many Transactions relationship
 Configurations.hasMany(Transactions, {
   foreignKey: "configurationId",
 });
 
+// sync with the DB and notify
 await sequelize.sync().then(() => {
   console.log(`\nDatabase & tables created...`);
 });

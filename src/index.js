@@ -1,3 +1,7 @@
+/**
+ * The entry file to the application.
+ */
+
 import "dotenv/config";
 import "./di-setup.js";
 import Watcher from "./watcher.js";

@@ -1,3 +1,7 @@
+/**
+ * Here we set up our Dependency Injection Container using awilix.
+ */
+
 import awilix from "awilix";
 import ConfigurationsController from "./api/controllers/configurationsController.js";
 import ConfigurationsDao from "./api/dao/configurationsDao.js";
