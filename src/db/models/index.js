@@ -1,4 +1,4 @@
-import TransactionModelConstructor from "./transaction.js";
-import RuleModelConstructor from "./rule.js";
+import TransactionModelConstructor from "./Transaction.js";
+import ConfigurationModelConstructor from "./Configuration.js";
 
-export { TransactionModelConstructor, RuleModelConstructor };
+export { TransactionModelConstructor, ConfigurationModelConstructor };

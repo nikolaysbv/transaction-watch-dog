@@ -1,21 +1,21 @@
 export default (sequelize, type) => {
-  return sequelize.define("rule", {
-    ruleId: {
+  return sequelize.define("configuration", {
+    configurationId: {
       type: type.INTEGER,
       primaryKey: true,
       unique: true,
       autoIncrement: true,
       initialAutoIncrement: 1,
     },
-    ruleName: {
+    configurationName: {
       type: type.STRING,
-      defaultValue: "Rule",
+      defaultValue: "configuration",
     },
-    ruleBlockHash: {
+    configurationBlockHash: {
       type: type.STRING,
       // defaultValue: null,
     },
-    ruleBlockNumber: {
+    configurationBlockNumber: {
       type: type.STRING,
       validate: {
         is: {
@@ -24,19 +24,10 @@ export default (sequelize, type) => {
         },
       },
     },
-    ruleFrom: {
+    configurationFrom: {
       type: type.STRING,
     },
-    ruleGas: {
-      type: type.STRING,
-      validate: {
-        is: {
-          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
-          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
-        },
-      },
-    },
-    ruleGasPrice: {
+    configurationGas: {
       type: type.STRING,
       validate: {
         is: {
@@ -45,10 +36,7 @@ export default (sequelize, type) => {
         },
       },
     },
-    ruleHash: {
-      type: type.STRING,
-    },
-    ruleNonce: {
+    configurationGasPrice: {
       type: type.STRING,
       validate: {
         is: {
@@ -57,10 +45,10 @@ export default (sequelize, type) => {
         },
       },
     },
-    ruleTo: {
+    configurationHash: {
       type: type.STRING,
     },
-    ruleTransactionIndex: {
+    configurationNonce: {
       type: type.STRING,
       validate: {
         is: {
@@ -69,7 +57,19 @@ export default (sequelize, type) => {
         },
       },
     },
-    ruleType: {
+    configurationTo: {
+      type: type.STRING,
+    },
+    configurationTransactionIndex: {
+      type: type.STRING,
+      validate: {
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+,?\d*|^(range)\s\d+,?\d*,{1}\s\d+,?\d*/i,
+          msg: "Must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number], [number]'",
+        },
+      },
+    },
+    configurationType: {
       type: type.STRING,
       validate: {
         isIn: {
@@ -78,7 +78,7 @@ export default (sequelize, type) => {
         },
       },
     },
-    ruleValue: {
+    configurationValue: {
       type: type.STRING,
       validate: {
         is: {

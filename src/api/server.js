@@ -9,11 +9,11 @@ import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
 // routers
-import rulesRouter from "./routes/rulesRouter.js";
+import configurationsRouter from "./routes/configurationsRouter.js";
 
 app.use(express.json());
 
-app.use("/api/v1/rules", rulesRouter);
+app.use("/api/v1/configurations", configurationsRouter);
 
 // app.get("*", (req, res) => {
 //   res.send("Hi!");

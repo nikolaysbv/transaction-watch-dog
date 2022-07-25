@@ -2,7 +2,7 @@ import "dotenv/config";
 import { Sequelize } from "sequelize";
 import {
   TransactionModelConstructor,
-  RuleModelConstructor,
+  ConfigurationModelConstructor,
 } from "./models/index.js";
 
 let models;
@@ -15,17 +15,17 @@ const connect = async (db, name, password) => {
   });
 
   const Transactions = TransactionModelConstructor(sequelize, Sequelize);
-  const Rules = RuleModelConstructor(sequelize, Sequelize);
+  const Configurations = ConfigurationModelConstructor(sequelize, Sequelize);
 
-  Rules.hasMany(Transactions, {
-    foreignKey: "ruleId",
+  Configurations.hasMany(Transactions, {
+    foreignKey: "configurationId",
   });
 
   await sequelize.sync().then(() => {
     console.log(`\nDatabase & tables created...`);
   });
 
-  models = { Transactions, Rules };
+  models = { Transactions, Configurations };
 };
 
 export { connect, models };
