@@ -268,7 +268,15 @@ class Watcher {
             transactionsAdded++;
             break;
           } catch (error) {
-            console.log(error);
+            if (error.name === "SequelizeUniqueConstraintError") {
+              /**
+               * Transaction is already in DB - most probably
+               * a chain reorganization has occured. In this
+               * case we exit the configuration loop and go to
+               * next transaction.
+               */
+              break;
+            }
           }
         }
       }
