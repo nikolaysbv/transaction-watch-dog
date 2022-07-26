@@ -25,7 +25,7 @@ Each configuration consist of rules, which are connected to the properties of a 
 
 To set a configuration, use the manual on how to use the API below.
 
-Rules for numeric fields allow comparison by the operators lt(<), lte(<=), gt(>), gte(>=) and eq(=). More on how to use them in the API documentation below.
+Rules for numeric fields allow comparison by the operators lt(<), lte(<=), gt(>), gte(>=), eq(=) and range. More on how to use them in the API documentation below.
 
 ## How to use the API
 
@@ -70,7 +70,7 @@ Properties are structured in the following way:
 - comparison is done by using the operators lt(<), lte(<=), gt(>), gte(>=), eq(=) or range;
 - format of property is either `<eq|lt|lte|gt|gte> [number]` or `<range> [number],[number]`
 - example eq|lt|lte|gt|gte: `gte 3` - transaction property greater than or equal to 3;
-- example range: `range 3, 5` - transaction property greater than or equal to 3 and less than or equal to 5;
+- example range: `range 3,5` - transaction property greater than or equal to 3 and less than or equal to 5;
 - configurationBlockNumber - the block number of the transaction;
 - configurationGas - the gas units used for the transaction;
 - configurationGasPrice - the gas price at the time of transaction;
