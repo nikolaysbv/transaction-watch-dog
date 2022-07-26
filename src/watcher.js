@@ -75,7 +75,14 @@ class Watcher {
      * of the new block, so we get all transactions of new block.
      */
 
-    const transactions = message.result.transactions;
+    const blockNumber = web3.utils.hexToNumberString(message.result.number);
+    const transactions = message.result?.transactions;
+
+    // making sure block has transactions
+    if (!transactions) {
+      logger.info(`No transactions found in block number ${blockNumber}.`);
+      return;
+    }
 
     /**
      * Get all available configurations at time of message received,
@@ -89,9 +96,7 @@ class Watcher {
     });
     if (!configurations.length) {
       logger.info(
-        `No configurations set. Block number ${web3.utils.hexToNumberString(
-          message.result.number
-        )} skipped.`
+        `No configurations set. Block number ${blockNumber} skipped.`
       );
       return;
     }
@@ -283,9 +288,7 @@ class Watcher {
     }
 
     logger.info(
-      `Transactions table updated with ${transactionsAdded} transactions from block number ${web3.utils.hexToNumberString(
-        message.result.number
-      )}.`
+      `Transactions table updated with ${transactionsAdded} transactions from block number ${blockNumber}.`
     );
   }
 
