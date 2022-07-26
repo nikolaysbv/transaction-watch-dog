@@ -8,7 +8,7 @@ import Watcher from "./watcher.js";
 import Server from "./api/server.js";
 
 const watcher = new Watcher();
-watcher.watch(process.env.INFURA_ENDPOINT);
+watcher.watch(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
 
 const server = new Server();
 server.run(process.env.PORT || 5000);

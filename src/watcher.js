@@ -75,7 +75,7 @@ class Watcher {
      * of the new block, so we get all transactions of new block.
      */
 
-    const blockNumber = web3.utils.hexToNumberString(message.result.number);
+    const blockNumber = web3.utils.hexToNumberString(message.result?.number);
     const transactions = message.result?.transactions;
 
     // making sure block has transactions
