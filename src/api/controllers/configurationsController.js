@@ -39,6 +39,7 @@ class ConfigurationsController {
       configurationFrom,
       configurationGas,
       configurationGasPrice,
+      configurationTransactionFee,
       configurationHash,
       configurationNonce,
       configurationTo,
@@ -54,6 +55,7 @@ class ConfigurationsController {
       !configurationBlockNumber &&
       !configurationGas &&
       !configurationGasPrice &&
+      !configurationTransactionFee &&
       !configurationHash &&
       !configurationNonce &&
       !configurationTo &&
@@ -71,6 +73,7 @@ class ConfigurationsController {
       configurationFrom,
       configurationGas,
       configurationGasPrice,
+      configurationTransactionFee,
       configurationHash,
       configurationNonce,
       configurationTo,
@@ -92,6 +95,7 @@ class ConfigurationsController {
       configurationFrom,
       configurationGas,
       configurationGasPrice,
+      configurationTransactionFee,
       configurationHash,
       configurationNonce,
       configurationTo,
@@ -108,6 +112,7 @@ class ConfigurationsController {
       !configurationBlockNumber &&
       !configurationGas &&
       !configurationGasPrice &&
+      !configurationTransactionFee &&
       !configurationHash &&
       !configurationNonce &&
       !configurationTo &&
@@ -128,6 +133,7 @@ class ConfigurationsController {
         configurationFrom,
         configurationGas,
         configurationGasPrice,
+        configurationTransactionFee,
         configurationHash,
         configurationNonce,
         configurationTo,

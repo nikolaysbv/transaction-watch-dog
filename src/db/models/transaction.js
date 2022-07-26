@@ -20,6 +20,10 @@ export default (sequelize, type) => {
       type: type.STRING,
       defaultValue: 0,
     },
+    transactionFee: {
+      type: type.STRING,
+      defaultValue: 0,
+    },
     hash: {
       type: type.STRING,
       primaryKey: true,

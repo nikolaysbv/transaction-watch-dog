@@ -147,10 +147,7 @@ class Watcher {
       }
 
       if (newTransaction.gas) {
-        newTransaction.gas = web3.utils.fromWei(
-          web3.utils.hexToNumberString(newTransaction.gas),
-          "ether"
-        );
+        newTransaction.gas = web3.utils.hexToNumber(newTransaction.gas);
       }
 
       if (newTransaction.gasPrice) {
@@ -182,6 +179,13 @@ class Watcher {
           web3.utils.hexToNumber(newTransaction.type)
         );
       }
+
+      /**
+       * Calculating transaction fee using gas and gasPrice.
+       */
+
+      newTransaction.transactionFee =
+        newTransaction.gas * newTransaction.gasPrice;
 
       /**
        * We have the completed transaction object, now go through all configurations
@@ -218,10 +222,10 @@ class Watcher {
 
         for (let rule of applicableRules) {
           const [key, value] = rule;
-          const transactionSubsequentKey =
+          const transactionRespectiveKey =
             key.slice(13, 14).toLowerCase() + key.slice(14);
-          const transactionSubsequentValue =
-            newTransaction[transactionSubsequentKey];
+          const transactionRespectiveValue =
+            newTransaction[transactionRespectiveKey];
 
           /**
            * If rule is numeric, compare it using the comparison
@@ -233,14 +237,15 @@ class Watcher {
               "blockNumber",
               "gas",
               "gasPrice",
+              "transactionFee",
               "nonce",
               "transactionIndex",
               "value",
-            ].includes(transactionSubsequentKey)
+            ].includes(transactionRespectiveKey)
           ) {
             const [comparisonOperator, comparisonNumber] = value.split(" ", 2);
             const rulePassed = this.isRulePassed(
-              transactionSubsequentValue,
+              transactionRespectiveValue,
               comparisonOperator,
               comparisonNumber
             );
@@ -253,7 +258,7 @@ class Watcher {
             continue;
           }
 
-          if (transactionSubsequentValue !== value) {
+          if (transactionRespectiveValue !== value) {
             configurationPassed = false;
             break;
           }

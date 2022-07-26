@@ -45,6 +45,15 @@ export default (sequelize, type) => {
         },
       },
     },
+    configurationTransactionFee: {
+      type: type.STRING,
+      validate: {
+        is: {
+          args: /^(eq|lt|lte|gt|gte)\s\d+\.?\d*$|^(range)\s\d+\.?\d*,{1}\d+\.?\d*$/i,
+          msg: "must be in the format '<eq|lt|lte|gt|gte> [number]' or '<range> [number],[number]'",
+        },
+      },
+    },
     configurationHash: {
       type: type.STRING,
     },
