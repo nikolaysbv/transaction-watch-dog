@@ -7,6 +7,7 @@
 import WebSocket from "ws";
 import web3 from "web3";
 import { Transactions, Configurations } from "./db/sequelize.js";
+import { Op, literal } from "sequelize";
 import comparisonMap from "./utils/comparisonMap.js";
 import logger from "./utils/logger.js";
 
@@ -81,7 +82,11 @@ class Watcher {
      * and if no configurations are available, skip block.
      */
 
-    const configurations = await Configurations.findAll();
+    const configurations = await Configurations.findAll({
+      where: {
+        configurationDelay: 0,
+      },
+    });
     if (!configurations.length) {
       logger.info(
         `No configurations set. Block number ${web3.utils.hexToNumberString(
@@ -90,6 +95,9 @@ class Watcher {
       );
       return;
     }
+
+    // decrement by one delay of configurations with delay
+    await this.decrementDelayInConfigurations();
 
     // transactions added to the database
     let transactionsAdded = 0;
@@ -188,6 +196,7 @@ class Watcher {
               ![
                 "configurationId",
                 "configurationName",
+                "configurationDelay",
                 "createdAt",
                 "updatedAt",
               ].includes(key)
@@ -290,6 +299,25 @@ class Watcher {
             compareValue.split(",")[1]
           )}`
         )();
+  }
+
+  async decrementDelayInConfigurations() {
+    /**
+     * Find all configurations which have delay
+     * and decrement that delay by one (function is
+     * called on each new block).
+     */
+
+    await Configurations.update(
+      { configurationDelay: literal("configurationDelay - 1") },
+      {
+        where: {
+          configurationDelay: {
+            [Op.ne]: 0,
+          },
+        },
+      }
+    );
   }
 }
 

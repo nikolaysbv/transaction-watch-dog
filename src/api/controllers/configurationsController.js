@@ -45,6 +45,7 @@ class ConfigurationsController {
       configurationTransactionIndex,
       configurationType,
       configurationValue,
+      configurationDelay,
     } = req.body;
 
     if (
@@ -76,6 +77,7 @@ class ConfigurationsController {
       configurationTransactionIndex,
       configurationType,
       configurationValue,
+      configurationDelay,
     });
 
     res.status(201).json(configuration);
@@ -96,6 +98,7 @@ class ConfigurationsController {
       configurationTransactionIndex,
       configurationType,
       configurationValue,
+      configurationDelay,
     } = req.body;
 
     if (
@@ -110,7 +113,8 @@ class ConfigurationsController {
       !configurationTo &&
       !configurationTransactionIndex &&
       !configurationType &&
-      !configurationValue
+      !configurationValue &&
+      !configurationDelay
     ) {
       throw new BadRequestError("Please provide configuration propeties!");
     }
@@ -130,6 +134,7 @@ class ConfigurationsController {
         configurationTransactionIndex,
         configurationType,
         configurationValue,
+        configurationDelay,
       }
     );
 

@@ -87,5 +87,12 @@ export default (sequelize, type) => {
         },
       },
     },
+    // Allows to set delay on configuration, which makes
+    // the configuration inactive until the amount of
+    // blocks, set on the delay, have passed.
+    configurationDelay: {
+      type: type.INTEGER.UNSIGNED,
+      defaultValue: 0,
+    },
   });
 };
