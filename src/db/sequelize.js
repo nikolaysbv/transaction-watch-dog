@@ -5,6 +5,7 @@
  */
 
 import "dotenv/config";
+import logger from "../utils/logger.js";
 import { Sequelize } from "sequelize";
 import {
   TransactionModelConstructor,
@@ -34,7 +35,7 @@ Configurations.hasMany(Transactions, {
 
 // sync with the DB and notify
 await sequelize.sync().then(() => {
-  console.log(`\nDatabase & tables created...`);
+  logger.info(`Database & tables created...`);
 });
 
 export { Transactions, Configurations };

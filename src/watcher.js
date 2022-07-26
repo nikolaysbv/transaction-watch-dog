@@ -8,6 +8,7 @@ import WebSocket from "ws";
 import web3 from "web3";
 import { Transactions, Configurations } from "./db/sequelize.js";
 import comparisonMap from "./utils/comparisonMap.js";
+import logger from "./utils/logger.js";
 
 class Watcher {
   constructor() {
@@ -25,7 +26,7 @@ class Watcher {
     this.ws.on("message", this.handleMessage);
     this.ws.on("close", this.handleClose);
 
-    console.log("Monitoring started...");
+    logger.info("Monitoring started...");
   }
 
   handleOpen() {
@@ -82,7 +83,7 @@ class Watcher {
 
     const configurations = await Configurations.findAll();
     if (!configurations.length) {
-      console.log(
+      logger.info(
         `No configurations set. Block number ${web3.utils.hexToNumberString(
           message.result.number
         )} skipped.`
@@ -264,7 +265,7 @@ class Watcher {
       }
     }
 
-    console.log(
+    logger.info(
       `Transactions table updated with ${transactionsAdded} transactions from block number ${web3.utils.hexToNumberString(
         message.result.number
       )}.`
@@ -272,7 +273,7 @@ class Watcher {
   }
 
   handleClose() {
-    console.log("Websocket closed.");
+    logger.info("Websocket closed.");
   }
 
   isRulePassed(value, operator, compareValue) {

@@ -3,6 +3,7 @@
  * the DB (on API level).
  */
 
+import logger from "../../utils/logger.js";
 import { NotFoundError } from "../errors/index.js";
 
 class ConfigurationsDao {
@@ -30,6 +31,11 @@ class ConfigurationsDao {
 
   async createConfiguration(fields) {
     const configuration = await this.configurations.create(fields);
+
+    logger.info(
+      `Configuration with id ${configuration.configurationId} created.`
+    );
+
     return configuration;
   }
 
@@ -48,6 +54,8 @@ class ConfigurationsDao {
 
     await configuration.save();
 
+    logger.info(`Configuration with id ${id} updated.`);
+
     return configuration;
   }
 
@@ -63,6 +71,8 @@ class ConfigurationsDao {
     }
 
     await configuration.destroy();
+
+    logger.info(`Configuration with id ${id} deleted.`);
   }
 }
 

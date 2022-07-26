@@ -1,13 +1,8 @@
 import express from "express";
-
-// modules
 import "express-async-errors";
-
-// middleware
+import logger from "../utils/logger.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
-
-// routers
 import configurationsRouter from "./routes/configurationsRouter.js";
 
 class Server {
@@ -25,7 +20,7 @@ class Server {
 
   run(port) {
     this.app.listen(port, () => {
-      console.log(`Server is listening on port ${port}...\n`);
+      logger.info(`Server is listening on port ${port}...\n`);
     });
   }
 }
