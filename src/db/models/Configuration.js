@@ -87,5 +87,9 @@ export default (sequelize, type) => {
         },
       },
     },
+    configurationDelay: {
+      type: type.INTEGER.UNSIGNED,
+      defaultValue: 0,
+    },
   });
 };
